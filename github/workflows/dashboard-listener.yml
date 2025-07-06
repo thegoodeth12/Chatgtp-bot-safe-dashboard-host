@@ -1,28 +1,28 @@
-name: Listen for Private Trigger
+name: Rebuild Safe Dashboard
 
 on:
   repository_dispatch:
     types: [update-safe-dashboard]
 
 jobs:
-  deploy-dashboard:
-    name: Build & Deploy Safe Dashboard
+  build-dashboard:
+    name: Build Safe Dashboard
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout public repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
-      - name: Build the app
-        run: npm run build
-
-      - name: Deploy (Vercel CLI or other method)
-        run: echo "🚀 Add your Vercel deploy command here"
+      - name: Build dashboard
+        run: pnpm build
