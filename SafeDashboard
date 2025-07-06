@@ -1,0 +1,12 @@
+/SafeDashboard
+├── app/
+│   └── page.tsx                 # Dashboard homepage
+├── components/
+│   └── SafeDashboard.tsx        # Dashboard logic UI
+├── public/
+│   └── logo.png                 # Your app's logo
+├── package.json
+├── tsconfig.json
+├── next.config.js
+├── README.md
+└── .gitignore
