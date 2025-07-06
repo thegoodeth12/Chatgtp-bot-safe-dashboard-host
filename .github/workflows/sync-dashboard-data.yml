@@ -1,0 +1,41 @@
+name: Sync Dashboard Data
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/update-dashboard.ts'
+      - '.github/workflows/sync-dashboard-data.yml'
+
+jobs:
+  sync-dashboard:
+    name: Update dashboard-data.json
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run dashboard update script
+        run: npx ts-node scripts/update-dashboard.ts
+
+      - name: Set Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit dashboard data (if changed)
+        run: |
+          git add dashboard-data.json
+          git diff --cached --quiet || git commit -m "Sync dashboard data"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
