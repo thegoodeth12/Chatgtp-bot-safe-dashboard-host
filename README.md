@@ -1,4 +1,11 @@
-# Safe Dashboard (Public)
+# Safe Dashboard
+
+Public dashboard for Safe{Wallet} activity.
+
+<!-- PROPOSALS_START -->
+<!-- PROPOSALS_END -->
+
+Powered by GitHub Actions + Discord + AppKit 🔥
 
 This is the public dashboard for Safe Wallet activity and proposals.
 
