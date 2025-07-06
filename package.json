@@ -1,7 +1,6 @@
 {
   "name": "safe-dashboard",
   "version": "1.0.0",
-  "description": "Public Safe{Wallet} dashboard built with Next.js and powered by GitHub Actions",
   "packageManager": "pnpm@8.6.0",
   "scripts": {
     "dev": "next dev",
