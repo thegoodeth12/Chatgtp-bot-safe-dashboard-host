@@ -1,0 +1,32 @@
+name: Sync Dashboard Data
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [update-safe-dashboard]
+
+jobs:
+  sync-dashboard:
+    name: Sync dashboard-data.json
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+
+      - name: Pull latest dashboard data from private repo
+        env:
+          GH_TOKEN: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
+        run: |
+          curl -H "Authorization: token $GH_TOKEN" \
+               -H "Accept: application/vnd.github.v3.raw" \
+               -o dashboard-data.json \
+               https://api.github.com/repos/Chatgtp-bot/.github-private/contents/dashboard-data.json
+
+      - name: Commit & Push Updated Data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard-data.json
+          git commit -m "Update dashboard-data.json from private repo"
+          git push
