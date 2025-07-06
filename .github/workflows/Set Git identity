@@ -1,0 +1,12 @@
+- name: Set Git identity
+  run: |
+    git config user.name "github-actions[bot]"
+    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+- name: Commit dashboard data
+  run: |
+    git add dashboard-data.json
+    git commit -m "Sync dashboard data"
+    git push
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
